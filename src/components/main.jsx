@@ -1,4 +1,7 @@
 import React, { useRef, useState } from "react";
+import "./main.css";
+import { Btn } from "./btn";
+import Timer from "./timer";
 
 const padTime = (time) => {
   return time.toString().padStart(2, "0");
@@ -6,7 +9,7 @@ const padTime = (time) => {
 
 const Main = () => {
   const [title, setTitle] = useState("Let the countdown begin!!!");
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
   const intervalRef = useRef(null);
 
@@ -47,18 +50,14 @@ const Main = () => {
   return (
     <div className="main">
       <h2>{title}</h2>
+      <Timer minutes={minutes} seconds={seconds} />
 
-      <div className="timer">
-        <span>{minutes}</span>
-        <span>:</span>
-        <span>{seconds}</span>
-      </div>
-
-      <div className="buttons">
-        {!isRunning && <button onClick={startTimer}>Start</button>}
-        {isRunning && <button onClick={stopTimer}>Stop</button>}
-        <button onClick={resetTimer}>Reset</button>
-      </div>
+      <Btn
+        isRunning={isRunning}
+        startTimer={startTimer}
+        stopTimer={stopTimer}
+        resetTimer={resetTimer}
+      />
     </div>
   );
 };
